@@ -9,11 +9,10 @@ app.config.from_object(Config())
 def index():
     return render_template('index.html', list_items=get_items())
 
-@app.route('/additem', methods=['GET', 'POST'])
+@app.route('/additem', methods=['POST'])
 def additem():
-    if request.method == 'POST':
-        add_item(request.form.get('title'))
-        return redirect(url_for('index'))
+    add_item(request.form.get('title'))
+    return redirect(url_for('index'))
     
 if __name__ == "__main__":
     app.run(debug=True)
