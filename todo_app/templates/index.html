@@ -9,21 +9,30 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>Open Items</h2>
       <ul class="list-group mb-4">
-        {% for item in list_items %}
+        {% for item in list_open_items %}
             <li> Number {{ item.id }} - {{item.title}} - {{item.status}}  </li>
         {% endfor %}
       </ul>
     </div>
   </div>
- 
   
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Closed Items</h2>
+      <ul class="list-group mb-4">
+        {% for item in list_closed_items %}
+            <li> Number {{ item.id }} - {{item.title}} - {{item.status}}  </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
   <form action="/additem" method="POST">
   <label for="title">Add Item:</label><br>
   <input type="text" id="id" name="title" value=""><br>
   <input type="submit" value="Submit">
 </form>
-  
   
 {% endblock %}

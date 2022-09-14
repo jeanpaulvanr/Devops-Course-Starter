@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, requests, os
-from todo_app.data.session_items import get_items, add_item
+from flask import Flask, render_template, request, redirect, url_for
+#from todo_app.data.session_items import get_items, add_item
+from todo_app.data.trello_items import get_open_items, get_closed_items
 from todo_app.flask_config import Config
 
 app = Flask(__name__)
@@ -7,49 +8,14 @@ app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    return render_template('index.html', list_items=get_items())
+    return render_template('index.html', list_open_items=get_open_items(), list_closed_items=get_closed_items())
 
+'''
 @app.route('/additem', methods=['POST'])
 def additem():
     add_item(request.form.get('title'))
     return redirect(url_for('index'))
-    
+'''
+
 if __name__ == "__main__":
-    app.run(debug=True)
-    
-    
-    
- '''
-import requests
-import os
-
-key = os.getenv("API_KEY")
-token = os.getenv("API_TOKEN")
-board_id = os.getenv("BOARD_ID")
-
-#response = requests.get(f"https://api.trello.com/1/boards/{board_id}/lists?key={key}&token={token}&cards=all")
-
-response = requests.get(f"https://api.trello.com/1/boards/sb0NVnTP/lists?key=cb25b32fe9619e59b4a7445d8f4b80f4&token=430ec4388718ead2e2017b24c724576eb2a0cd6cf066efdc439229288245e7b0&cards=all")
-
-response_json = response.json()
-
-list_of_cards =[]
-
-for trello_list in response_json:
-    list_name = trello_list["name"]
-    cards = trello_list["cards"]
-
-#how does the above for loop link to the bottom for loop? i.e. loop once top and then go through cards? Or loop through top creating 'full' list_name and cards? But then how does the status know the list_name if that's the case?
-#why define list_of_cards but not list_name? Or is that because you are defining a list? Does this answer my above question and the for loop steps into the second for loop before stepping back to start the next round of looping?
-
-    for card in cards:
-        item = {
-            "title": card["name"],
-            "id": card["id"],
-            "status": list_name
-        }
-        list_of_cards.append(item)
-
-for c in list_of_cards:
-    print(c)
- '''
+    app.run()
