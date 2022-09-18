@@ -52,3 +52,24 @@ def get_closed_items():
                 list_of_cards_done.append(trello_item)
     
     return list_of_cards_done
+
+def add_item(title):
+
+    for trello_list in get_items_all():
+        if trello_list["name"] == "To Do":
+            list_id = trello_list["id"]
+
+    item = requests.post(f"https://api.trello.com/1/cards?idList={list_id}&key={key}&token={token}&name={title}")
+
+    return item
+
+def close_item(card_id):
+    
+    for trello_list in get_items_all():
+        if trello_list["name"] == "Done":
+            list_id = trello_list["id"]
+
+    #item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={list_id}&key={key}&token={token}&board_id={board_id}")
+    item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={list_id}&key={key}&token={token}&board_id={board_id}")
+    
+    return item
