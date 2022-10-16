@@ -2,28 +2,56 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
+
+  <div class="jumbotron" style="background-color:#cfdcd3;">
     <h1 class="display-4">To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>Open Items</h2>
       <ul class="list-group mb-4">
-        {% for item in list_items %}
-            <li> Number {{ item.id }} - {{item.title}} - {{item.status}}  </li>
+        {% for item in list_open_items %}
+            <li> Item ID: {{ item.card_id }} - Title: {{item.card_name}} - Status: {{item.list_name}}  </li>
         {% endfor %}
       </ul>
     </div>
   </div>
- 
-  
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>In Progress Items</h2>
+      <ul class="list-group mb-4">
+        {% for item in list_progress_items %}
+            <li> Item ID: {{ item.card_id }} - Title: {{item.card_name}} - Status: {{item.list_name}}   </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Closed Items</h2>
+      <ul class="list-group mb-4">
+        {% for item in list_closed_items %}
+            <li> Item ID: {{ item.card_id }} - Title: {{item.card_name}} - Status: {{item.list_name}}   </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
   <form action="/additem" method="POST">
-  <label for="title">Add Item:</label><br>
-  <input type="text" id="id" name="title" value=""><br>
-  <input type="submit" value="Submit">
+      <label for="title"><b><p style="font-size:30px">Add Item:</p></b></label><br>
+      <input type="text" id="id" name="title" value="" required><br>
+      <input type="submit" value="Submit"><br>
+  </form><br>
+
+<form action="/closeitem" method="POST">
+  <label for="title"><b><p style="font-size:30px">Close Item:</p></b></label><br>
+  <label for="title">Please enter the Item you would like to close.<br> Enter only the Item ID:</label><br>
+  <input type="text" id="id" name="card_id" value="" required><br>
+  <input type="submit" value="Submit"><br>
 </form>
-  
   
 {% endblock %}

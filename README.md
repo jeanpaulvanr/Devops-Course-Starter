@@ -2,6 +2,31 @@
 
 > If you are using GitPod for the project exercise (i.e. you cannot use your local machine) then you'll want to launch a VM using the [following link](https://gitpod.io/#https://github.com/CorndelWithSoftwire/DevOps-Course-Starter). Note this VM comes pre-setup with Python & Poetry pre-installed.
 
+## Project Requirements
+
+### Create a Trello Account and API Key
+
+We're going to be using Trello's API to fetch and save our To Do app's tasks. 
+
+In order to call their
+API, you need to first [create an account](https://trello.com/signup), then generate an API key and token by following the instructions [here](https://trello.com/app-key).
+
+Make sure you make a note of these. We will need them again shortly.
+
+### Our To Do App's Trello Board ID
+
+Now you've set up an account and signed in, go ahead and create a new board.
+
+Name the board 'To_Do_App'.
+
+Select the board and in the browser, inspect the url.
+It should look similar to https://trello.com/b/sb0NVnTP/todoapp
+But not identical. 
+
+You need to take note of the sub-directory before the 'todoapp' sub-directory in the url.  In the example above, this would be sb0NVnTP
+
+This is your board id. Note it down as we will need it later on in our set up.
+
 ## System Requirements
 
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install Poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
@@ -34,6 +59,21 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
+Remember I asked you to take a note of the API key, Token and Board ID in the Project Requirements section above? Well, now we're going to need them.
+
+Locate the .env file you've just created in the root directory.
+
+Open it and located the #Trello section.
+
+Enter your values  as follows:
+
+```
+#Trello
+API_KEY=your-api-key-pasted-here-instead
+API_TOKEN=your-api-token-pasted-here-instead
+BOARD_ID=your-board-id-pasted-here-instead
+```
+Save and close the file.
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
