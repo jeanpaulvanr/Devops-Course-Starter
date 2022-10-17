@@ -29,19 +29,19 @@ def get_items(status):
                                                                   
     return list_of_cards
 
-def get_open_items():
+def get_do_items():
     
     list_of_cards_open = get_items('To Do')
                                                                   
     return list_of_cards_open
 
-def get_in_progress_items():
+def get_doing_items():
     
     list_of_cards_in_progress = get_items('Doing')
                                                                   
     return list_of_cards_in_progress
 
-def get_closed_items():
+def get_done_items():
     
     list_of_cards_closed = get_items('Done')
                                                                   

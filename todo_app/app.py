@@ -1,13 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for
-from todo_app.data.trello_items import get_open_items, get_closed_items, get_in_progress_items, add_item, close_item
+from todo_app.data.trello_items import get_do_items, get_done_items, get_doing_items, add_item, close_item
 from todo_app.flask_config import Config
+from todo_app.data.view_model import ViewModel
 
 app = Flask(__name__)
 app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    return render_template('index.html', list_open_items=get_open_items(), list_progress_items=get_in_progress_items(), list_closed_items=get_closed_items())
+    do_items = get_do_items()
+    doing_items = get_doing_items()
+    done_items = get_done_items()
+    item_view_model = ViewModel(do_items, doing_items, done_items)
+    return render_template('index.html', view_model = item_view_model )
 
 @app.route('/additem', methods=['POST'])
 def additem():
