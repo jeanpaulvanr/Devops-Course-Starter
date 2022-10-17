@@ -3,26 +3,30 @@ from todo_app.data.trello_items import get_do_items, get_done_items, get_doing_i
 from todo_app.flask_config import Config
 from todo_app.data.view_model import ViewModel
 
-app = Flask(__name__)
-app.config.from_object(Config())
+def create_app():
 
-@app.route('/')
-def index():
-    do_items = get_do_items()
-    doing_items = get_doing_items()
-    done_items = get_done_items()
-    item_view_model = ViewModel(do_items, doing_items, done_items)
-    return render_template('index.html', view_model = item_view_model )
+    app = Flask(__name__)
+    app.config.from_object(Config())
 
-@app.route('/additem', methods=['POST'])
-def additem():
-    add_item(request.form.get('title'))
-    return redirect(url_for('index'))
+    @app.route('/')
+    def index():
+        do_items = get_do_items()
+        doing_items = get_doing_items()
+        done_items = get_done_items()
+        item_view_model = ViewModel(do_items, doing_items, done_items)
+        return render_template('index.html', view_model = item_view_model )
 
-@app.route('/closeitem', methods=['POST'])
-def closeitem():
-    close_item(request.form.get('card_id'))
-    return redirect(url_for('index'))
+    @app.route('/additem', methods=['POST'])
+    def additem():
+        add_item(request.form.get('title'))
+        return redirect(url_for('index'))
 
-if __name__ == "__main__":
-    app.run()
+    @app.route('/closeitem', methods=['POST'])
+    def closeitem():
+        close_item(request.form.get('card_id'))
+        return redirect(url_for('index'))
+
+    if __name__ == "__main__":
+        app.run()
+    
+    return app
