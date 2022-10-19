@@ -1,8 +1,5 @@
 import requests, os
-from dotenv import load_dotenv
 from todo_app.data.item import Item
-
-load_dotenv()
 
 key = os.getenv("API_KEY")
 token = os.getenv("API_TOKEN")
