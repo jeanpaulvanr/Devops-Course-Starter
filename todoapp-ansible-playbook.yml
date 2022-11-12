@@ -1,4 +1,4 @@
-- name: Install Dependencies
+- name: Install dependencies
   hosts: webservers
   remote_user: ec2-user
   vars:
@@ -22,17 +22,17 @@
   - name: Install Poetry
     ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 -
 
-  - name: Create folder for the ToDo App
+  - name: Create folder for the todo app
     ansible.builtin.file:
       path: /opt/todoapp
       state: directory
       mode: '777'
     become: yes
 
-  - name: Prepare for Git Checkout below by removing dubious directory error
+  - name: Prepare for git checkout below by removing dubious directory error
     ansible.builtin.shell: git config --global --add safe.directory /opt/todoapp
 
-  - name: Git Checkout Module 4
+  - name: Git checkout module 4
     ansible.builtin.git:
       repo: https://github.com/jeanpaulvanr/Devops-Course-Starter.git
       dest: /opt/todoapp
@@ -51,7 +51,7 @@
       dest: /home/ec2-user/todoapp/env.j2
       flat: yes
 
-  - name: Create Jinja2 Env file Based on Set Variables
+  - name: Create jinja2 env file based on set variables
     template:
       src: /home/ec2-user/todoapp/env.j2
       dest: /opt/todoapp/.env
@@ -63,4 +63,11 @@
       dest: /etc/systemd/system/todoapp.service
       remote_src: yes
       mode: '777'
+    become: yes
+
+  - name: Restart todoapp service and issue daemon-reload to pick up config changes
+    ansible.builtin.systemd:
+      state: restarted
+      daemon_reload: yes
+      name: todoapp.service
     become: yes
