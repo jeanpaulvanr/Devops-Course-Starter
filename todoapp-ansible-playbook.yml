@@ -1,10 +1,19 @@
-- name: Install dependencies
+-- name: Install dependencies
   hosts: webservers
   remote_user: ec2-user
-  vars:
-    trello_board_id : sb0NVnTP
-    trello_api_key : cb25b32fe9619e59b4a7445d8f4b80f4
-    trello_api_token : 430ec4388718ead2e2017b24c724576eb2a0cd6cf066efdc439229288245e7b0
+  vars_prompt:
+
+  - name: trello_board_id
+    prompt: What is your Trello Board ID?
+    private: no
+
+  - name: trello_api_key
+    prompt: What is your Trello API Key?
+    private: no
+
+  - name: trello_api_token
+    prompt: What is your Trello API Token?
+    private: no
 
   tasks:
   - name: Install Git
