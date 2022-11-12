@@ -1,0 +1,51 @@
+- name: Install Dependencies
+  hosts: webservers
+  remote_user: ec2-user
+  vars:
+    trello_board_id : sb0NVnTP
+    trello_api_key : cb25b32fe9619e59b4a7445d8f4b80f4
+    trello_api_token : 430ec4388718ead2e2017b24c724576eb2a0cd6cf066efdc439229288245e7b0
+
+  tasks:
+  - name: Install Git
+    ansible.builtin.yum:
+       name: git
+       state: latest
+    become: yes
+
+  - name: Install Python 3 or above
+    ansible.builtin.yum:
+       name: python3
+       state: latest
+    become: yes
+
+  - name: Install Poetry
+    ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 -
+
+  - name: Create folder for the ToDo App
+    ansible.builtin.file:
+      path: /opt/todoapp
+      state: directory
+      mode: '777'
+    become: yes
+
+  - name: Prepare for Git Checkout below by removing dubious directory error
+    ansible.builtin.shell: git config --global --add safe.directory /opt/todoapp
+
+  - name: Git Checkout Module 3
+    ansible.builtin.git:
+      repo: https://github.com/jeanpaulvanr/Devops-Course-Starter.git
+      dest: /opt/todoapp
+      single_branch: yes
+      version: module_3
+      force: yes
+
+  - name: Change the working directory to opt/todoapp before executing the poetry commands
+    ansible.builtin.shell:
+      cmd: /home/ec2-user/.local/bin/poetry add requests
+      chdir: /opt/todoapp
+
+  - name: Jinja2 Env file Creation Based on Set Variables
+    template:
+      src: /home/ec2-user/todoapp/env.j2
+      dest: /opt/todoapp/.env
