@@ -184,4 +184,57 @@ todo_app\data\test_view_model.py ...                                            
 
 =============================================================== 4 passed in 0.63s ================================================================ 
 ```
+
+## Provision a New Virtual Machine to Host Your To-Do App
+
+### Prerequisites
+
+You will need:
+
+A Control Node: any machine with Ansible installed.
+
+A Managed Node(s): the servers you manage with Ansible.
+
+### Preparing Your Inventory File
+
+Open the file: todoapp-ansible-inventory
+
+Remove any existing IPs and add the IP (or IPs) of the managed node(s) underneath the [webservers] section:
+
+```
+[webservers]
+18.132.144.249
+```
+Save and close.
+
+### Preparing Your Control Node
+
+Copy the following files to a directory on your Control Node:
+
+```
+
+todoapp-ansible-inventory
+
+todoapp-ansible-playbook.yml
+
+```
+### Running the Playbook
+
+On the control node, navigate to the directory you copied the files above to.
+
+Run the following command:
+
+```
+ansible-playbook todoapp-ansible-playbook.yml -i todoapp-ansible-inventory
+```
+The app should now be accessible from your remote nodes!
+
+Test it by opening a browser and entering:
+
+```
+host_ip:5000
+```
+
+You should see the To Do App
+
 #### End of ReadMe
