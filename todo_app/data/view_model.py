@@ -1,18 +1,38 @@
 class ViewModel:
     
-    def __init__(self, do_items, doing_items, done_items):
-        self._do_items = do_items
-        self._doing_items = doing_items
-        self._done_items = done_items
+    def __init__(self, items):
+        self.items = items
 
     @property
     def do_items(self):
-       return self._do_items
+      
+      list_of_cards = []           
+           
+      for item in self.items:
+         if item.list_name == "To Do":
+            list_of_cards.append(item)
+            
+      return list_of_cards
 
     @property
     def doing_items(self):
-       return self._doing_items
+           
+      list_of_cards = []           
+           
+      for item in self.items:
+         if item.list_name == "Doing":
+            list_of_cards.append(item)
+            
+      return list_of_cards          
+
    
     @property
     def done_items(self):
-       return self._done_items
+           
+      list_of_cards = []           
+           
+      for item in self.items:
+         if item.list_name == "Done":
+            list_of_cards.append(item)
+            
+      return list_of_cards    

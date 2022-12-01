@@ -11,38 +11,15 @@ def get_items_all():
         
     response_json = response.json()
 
-    return response_json
-
-def get_items(status):
-
     list_of_cards =[]
 
-    for trello_list_name in get_items_all():
+    for trello_list_name in response_json:
         cards = trello_list_name["cards"]
 
         for card in cards:
-            if trello_list_name["name"] == status:
-                list_of_cards.append(Item.from_trello_card(card, trello_list_name))
-                                                                  
+            list_of_cards.append(Item.from_trello_card(card, trello_list_name))
+
     return list_of_cards
-
-def get_do_items():
-    
-    list_of_cards_open = get_items('To Do')
-                                                                  
-    return list_of_cards_open
-
-def get_doing_items():
-    
-    list_of_cards_in_progress = get_items('Doing')
-                                                                  
-    return list_of_cards_in_progress
-
-def get_done_items():
-    
-    list_of_cards_closed = get_items('Done')
-                                                                  
-    return list_of_cards_closed
 
 def add_item(title):
 
