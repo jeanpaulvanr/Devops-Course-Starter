@@ -51,12 +51,6 @@ The project uses a virtual environment to isolate package dependencies. To creat
 $ poetry install
 ```
 
-You'll then need to run 'poetry add requests' (as it's not currently tracked by Poetry):
-
-```bash
-$ poetry add requests  # (first time only)
-```
-
 You'll also need to clone a new `.env` file from the `.env.template` to store local configuration options. This is a one-time operation on first setup:
 
 ```bash
@@ -236,5 +230,41 @@ host_ip:5000
 ```
 
 You should see the To Do App
+
+## Using Docker to Run Your To-Do App 
+
+
+### Step 1: Install Docker
+If you haven't already, you'll need to install [Docker Desktop](https://www.docker.com/products/docker-desktop/). Installation instructions for Windows can be found [here](https://docs.docker.com/desktop/install/windows-install/). If prompted to choose between using Linux orWindows containers during setup, make sure you choose Linux containers.
+
+### Step 2: Build the Containers
+
+With Docker installed on you local environment, you can now build both a development and a production container by running the following commands from a bash terminal.
+Ensure you are in the Devops Course Starter directory.
+
+```
+$ docker build --target development --tag todo-app:dev .
+$ docker build --target production --tag todo-app:prod .
+```
+
+### Step 3: Run the Containers
+
+With the containers built, you can now run them with the following commands:
+
+####Production
+```
+$ docker run --env-file .env -p 5000:5000 todo-app:prod
+```
+
+####Development
+```
+$ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/opt/todoapp/todo_app todo-app:dev
+```
+
+###Step 4: Test the To-Do App is working
+
+Irrespective of whichever container you've run, navigate to [here](http:\\localhost:5000)
+
+You should both see your app and be able to use it.
 
 #### End of ReadMe
