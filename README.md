@@ -95,88 +95,19 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 
 ## Testing the App
+### Unit or Integration Testing
 
-### How to Set Up for Testing
-
-You need to add pytest as a dependency of our project.
-
-```bash
-$ poetry add pytest --dev
-```
-This should download it and also update pyproject.toml for you.
-
-You can now run either the Unit Tests or the Integration Tests or both. Please see below.
-
-### Unit Testing
-
-To run the Unit Tests on their own:
+To run the Unit or Integration Tests on their own:
 
 ```bash
-$ poetry run pytest todo_app\data\test_view_model.py 
+$ poetry run pytest <filepath> 
 ```
-Note: Ensure your terminal is in the root todo_app directory!
-
-You should see output similar to the following:
-
-```bash
-(.venv) C:\DevOps\DevOps-Course-Starter>poetry run pytest todo_app\data\test_view_model.py
-============================================================== test session starts ===============================================================
-platform win32 -- Python 3.10.5, pytest-7.1.3, pluggy-1.0.0
-rootdir: C:\DevOps\DevOps-Course-Starter
-collected 3 items
-
-todo_app\data\test_view_model.py ...                                                                                                        [100%] 
-
-=============================================================== 3 passed in 0.11s ================================================================ 
-```
-
-### Integration Testing
-
-To run the Integration Tests on their own:
-
-```bash
-$ poetry run pytest todo_app\data\test_client.py 
-```
-
-Note: Ensure your terminal is in the root todo_app directory!
-
-You should see output similar to the following:
-
-```bash
-(.venv) C:\DevOps\DevOps-Course-Starter>poetry run pytest todo_app\data\test_client.py    
-============================================================== test session starts ===============================================================
-platform win32 -- Python 3.10.5, pytest-7.1.3, pluggy-1.0.0
-rootdir: C:\DevOps\DevOps-Course-Starter
-collected 1 item
-
-todo_app\data\test_client.py .                                                                                                              [100%]
-
-=============================================================== 1 passed in 1.22s ================================================================ 
-```
-
 ### Running All Tests
 
 To run the all the tests together:
 
 ```bash
 $ poetry run pytest 
-```
-
-Note: Ensure your terminal is in the root todo_app directory!
-
-You should see output similar to the following:
-
-```bash
-(.venv) C:\DevOps\DevOps-Course-Starter>poetry run pytest
-============================================================== test session starts ===============================================================
-platform win32 -- Python 3.10.5, pytest-7.1.3, pluggy-1.0.0
-rootdir: C:\DevOps\DevOps-Course-Starter
-collected 4 items
-
-todo_app\data\test_client.py .                                                                                                              [ 25%]
-todo_app\data\test_view_model.py ...                                                                                                        [100%] 
-
-=============================================================== 4 passed in 0.63s ================================================================ 
 ```
 
 ## Provision a New Virtual Machine to Host Your To-Do App
