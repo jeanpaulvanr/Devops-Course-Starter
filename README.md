@@ -51,12 +51,6 @@ The project uses a virtual environment to isolate package dependencies. To creat
 $ poetry install
 ```
 
-You'll then need to run 'poetry add requests' (as it's not currently tracked by Poetry):
-
-```bash
-$ poetry add requests  # (first time only)
-```
-
 You'll also need to clone a new `.env` file from the `.env.template` to store local configuration options. This is a one-time operation on first setup:
 
 ```bash
@@ -101,88 +95,19 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 
 ## Testing the App
+### Unit or Integration Testing
 
-### How to Set Up for Testing
-
-You need to add pytest as a dependency of our project.
-
-```bash
-$ poetry add pytest --dev
-```
-This should download it and also update pyproject.toml for you.
-
-You can now run either the Unit Tests or the Integration Tests or both. Please see below.
-
-### Unit Testing
-
-To run the Unit Tests on their own:
+To run the Unit or Integration Tests on their own:
 
 ```bash
-$ poetry run pytest todo_app\data\test_view_model.py 
+$ poetry run pytest <filepath> 
 ```
-Note: Ensure your terminal is in the root todo_app directory!
-
-You should see output similar to the following:
-
-```bash
-(.venv) C:\DevOps\DevOps-Course-Starter>poetry run pytest todo_app\data\test_view_model.py
-============================================================== test session starts ===============================================================
-platform win32 -- Python 3.10.5, pytest-7.1.3, pluggy-1.0.0
-rootdir: C:\DevOps\DevOps-Course-Starter
-collected 3 items
-
-todo_app\data\test_view_model.py ...                                                                                                        [100%] 
-
-=============================================================== 3 passed in 0.11s ================================================================ 
-```
-
-### Integration Testing
-
-To run the Integration Tests on their own:
-
-```bash
-$ poetry run pytest todo_app\data\test_client.py 
-```
-
-Note: Ensure your terminal is in the root todo_app directory!
-
-You should see output similar to the following:
-
-```bash
-(.venv) C:\DevOps\DevOps-Course-Starter>poetry run pytest todo_app\data\test_client.py    
-============================================================== test session starts ===============================================================
-platform win32 -- Python 3.10.5, pytest-7.1.3, pluggy-1.0.0
-rootdir: C:\DevOps\DevOps-Course-Starter
-collected 1 item
-
-todo_app\data\test_client.py .                                                                                                              [100%]
-
-=============================================================== 1 passed in 1.22s ================================================================ 
-```
-
 ### Running All Tests
 
 To run the all the tests together:
 
 ```bash
 $ poetry run pytest 
-```
-
-Note: Ensure your terminal is in the root todo_app directory!
-
-You should see output similar to the following:
-
-```bash
-(.venv) C:\DevOps\DevOps-Course-Starter>poetry run pytest
-============================================================== test session starts ===============================================================
-platform win32 -- Python 3.10.5, pytest-7.1.3, pluggy-1.0.0
-rootdir: C:\DevOps\DevOps-Course-Starter
-collected 4 items
-
-todo_app\data\test_client.py .                                                                                                              [ 25%]
-todo_app\data\test_view_model.py ...                                                                                                        [100%] 
-
-=============================================================== 4 passed in 0.63s ================================================================ 
 ```
 
 ## Provision a New Virtual Machine to Host Your To-Do App
@@ -236,5 +161,41 @@ host_ip:5000
 ```
 
 You should see the To Do App
+
+## Using Docker to Run Your To-Do App 
+
+
+### Step 1: Install Docker
+If you haven't already, you'll need to install [Docker Desktop](https://www.docker.com/products/docker-desktop/). Installation instructions for Windows can be found [here](https://docs.docker.com/desktop/install/windows-install/). If prompted to choose between using Linux orWindows containers during setup, make sure you choose Linux containers.
+
+### Step 2: Build the Containers
+
+With Docker installed on you local environment, you can now build both a development and a production container by running the following commands from a bash terminal.
+Ensure you are in the Devops Course Starter directory.
+
+```
+$ docker build --target development --tag todo-app:dev .
+$ docker build --target production --tag todo-app:prod .
+```
+
+### Step 3: Run the Containers
+
+With the containers built, you can now run them with the following commands:
+
+####Production
+```
+$ docker run --env-file .env -p 5000:5000 todo-app:prod
+```
+
+####Development
+```
+$ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/opt/todoapp/todo_app todo-app:dev
+```
+
+###Step 4: Test the To-Do App is working
+
+Irrespective of whichever container you've run, navigate to [here](http:\\localhost:5000)
+
+You should both see your app and be able to use it.
 
 #### End of ReadMe

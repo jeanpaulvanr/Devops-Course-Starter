@@ -5,15 +5,15 @@
 
   - name: trello_board_id
     prompt: What is your Trello Board ID?
-    private: no
+    private: yes
 
   - name: trello_api_key
     prompt: What is your Trello API Key?
-    private: no
+    private: yes
 
   - name: trello_api_token
     prompt: What is your Trello API Token?
-    private: no
+    private: yes
 
   tasks:
   - name: Install Git
@@ -51,7 +51,7 @@
 
   - name: Change the working directory to opt/todoapp before executing the poetry commands
     ansible.builtin.shell:
-      cmd: /home/ec2-user/.local/bin/poetry add requests
+      cmd: /home/ec2-user/.local/bin/poetry install
       chdir: /opt/todoapp
 
   - name: Fetch env.j2 template from remote host
