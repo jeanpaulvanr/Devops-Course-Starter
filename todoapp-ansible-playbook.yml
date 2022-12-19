@@ -1,0 +1,82 @@
+-- name: Install dependencies
+  hosts: webservers
+  remote_user: ec2-user
+  vars_prompt:
+
+  - name: trello_board_id
+    prompt: What is your Trello Board ID?
+    private: no
+
+  - name: trello_api_key
+    prompt: What is your Trello API Key?
+    private: no
+
+  - name: trello_api_token
+    prompt: What is your Trello API Token?
+    private: no
+
+  tasks:
+  - name: Install Git
+    ansible.builtin.yum:
+       name: git
+       state: latest
+    become: yes
+
+  - name: Install Python 3 or above
+    ansible.builtin.yum:
+       name: python3
+       state: latest
+    become: yes
+
+  - name: Install Poetry
+    ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 -
+
+  - name: Create folder for the todo app
+    ansible.builtin.file:
+      path: /opt/todoapp
+      state: directory
+      mode: '777'
+    become: yes
+
+  - name: Prepare for git checkout below by removing dubious directory error
+    ansible.builtin.shell: git config --global --add safe.directory /opt/todoapp
+
+  - name: Git checkout module 4
+    ansible.builtin.git:
+      repo: https://github.com/jeanpaulvanr/Devops-Course-Starter.git
+      dest: /opt/todoapp
+      single_branch: yes
+      version: module_4
+      force: yes
+
+  - name: Change the working directory to opt/todoapp before executing the poetry commands
+    ansible.builtin.shell:
+      cmd: /home/ec2-user/.local/bin/poetry add requests
+      chdir: /opt/todoapp
+
+  - name: Fetch env.j2 template from remote host
+    fetch:
+      src: /opt/todoapp/env.j2
+      dest: /home/ec2-user/todoapp/env.j2
+      flat: yes
+
+  - name: Create jinja2 env file based on set variables
+    template:
+      src: /home/ec2-user/todoapp/env.j2
+      dest: /opt/todoapp/.env
+    become: yes
+
+  - name: Copy todoapp service to etc/systemd/system
+    ansible.builtin.copy:
+      src: /opt/todoapp/todoapp.service
+      dest: /etc/systemd/system/todoapp.service
+      remote_src: yes
+      mode: '777'
+    become: yes
+
+  - name: Restart todoapp service and issue daemon-reload to pick up config changes
+    ansible.builtin.systemd:
+      state: restarted
+      daemon_reload: yes
+      name: todoapp.service
+    become: yes
