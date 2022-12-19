@@ -4,6 +4,9 @@ from todo_app.data.item import Item
 key = os.getenv("API_KEY")
 token = os.getenv("API_TOKEN")
 board_id = os.getenv("BOARD_ID")
+todo_id = os.getenv("TO_DO_ID")
+doing_id = os.getenv("DOING_ID")
+done_id = os.getenv("DONE_ID")
 
 def get_items_all():
 
@@ -23,20 +26,18 @@ def get_items_all():
 
 def add_item(title):
 
-    for trello_list in get_items_all():
-        if trello_list["name"] == "To Do":
-            list_id = trello_list["id"]
+    item = requests.post(f"https://api.trello.com/1/cards?idList={todo_id}&key={key}&token={token}&name={title}")
 
-    item = requests.post(f"https://api.trello.com/1/cards?idList={list_id}&key={key}&token={token}&name={title}")
+    return item
+
+def doing_item(card_id):
+    
+    item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={doing_id}&key={key}&token={token}&board_id={board_id}")
 
     return item
 
 def close_item(card_id):
-    
-    for trello_list in get_items_all():
-        if trello_list["name"] == "Done":
-            list_id = trello_list["id"]
 
-    item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={list_id}&key={key}&token={token}&board_id={board_id}")
+    item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={done_id}&key={key}&token={token}&board_id={board_id}")
     
     return item
