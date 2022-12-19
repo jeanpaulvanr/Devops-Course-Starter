@@ -7,7 +7,6 @@ WORKDIR /opt/todoapp
 COPY poetry.lock pyproject.toml /opt/todoapp/
 RUN poetry install
 EXPOSE 5000
-WORKDIR /opt/todoapp/todo_app/
 
 FROM base as production
 
@@ -16,4 +15,4 @@ ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:5000 "todo_app.app:create_app()"
 
 FROM base as development
 
-ENTRYPOINT FLASK_APP=app.py poetry run flask run --host 0.0.0.0
+ENTRYPOINT poetry run flask run --host 0.0.0.0
