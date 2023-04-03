@@ -43,7 +43,7 @@ def stub(url, params={}):
         return StubResponse(fake_response_data)
 
     raise Exception(f'Integration test did not expect URL "{url}", instead expected "{expected_url}"')
-  
+     
 def test_board_id():
     return os.environ.get('BOARD_ID')
 
