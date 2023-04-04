@@ -176,6 +176,7 @@ Ensure you are in the Devops Course Starter directory.
 ```
 $ docker build --target development --tag todo-app:dev .
 $ docker build --target production --tag todo-app:prod .
+$ docker build --target test --tag todo-app:test .
 ```
 
 ### Step 3: Run the Containers
@@ -191,13 +192,14 @@ $ docker run --env-file .env -p 5000:5000 todo-app:prod
 ```
 $ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/opt/todoapp/todo_app todo-app:dev
 ```
+####Test
+
+$ docker run todo-app:test
 
 ###Step 4: Test the To-Do App is working
 
-Irrespective of whichever container you've run, navigate to [here](http:\\localhost:5000)
+Irrespective of whether you've run the development or production container, navigate to [here](http:\\localhost:5000)
 
 You should both see your app and be able to use it.
 
 #### End of ReadMe
-
-Test change for GitHub Actions Pull Ignore Command
