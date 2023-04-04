@@ -2,8 +2,16 @@ name: Continuous Integration
 on: [push]
 jobs:
   build:
-    name: Build and test
+    name: Build the Test Image
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - run: docker build --target test --tag my-test-image .
+
+  test:
+    name: Run the Test Image
+    runs-on ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    -run: docker run my-test-image
+   
