@@ -1,19 +1,16 @@
 name: Continuous Integration
 on: [push]
 jobs:
-  build:
-    name: Build the Test Image
+  to-do-app-tests:
     runs-on: ubuntu-latest
+    name: run pytests
     steps:
-    - uses: actions/checkout@v2
-    - run: docker build --target test --tag my-test-image .
-
-  runs:
-    name: Run the Test Image
-    runs-on: ubuntu-latest
-    using: 'docker'
-    image: 'my-test-image'
-    steps:
-    - uses: actions/checkout@v2
-    - run: docker run my-test-image
+    - name: build test image
+      uses: actions/checkout@v2
+      run: docker build --target test --tag my-test-image .
+    - name: run test image
+      uses: actions/checkout@v2
+      using: 'docker'
+      image: 'my-test-image'
+      run: docker run my-test-image
    
