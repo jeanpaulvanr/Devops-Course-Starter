@@ -1,5 +1,8 @@
 name: Continuous Integration
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - **.md
 jobs:
   to-do-app-tests:
     name: run pytests
