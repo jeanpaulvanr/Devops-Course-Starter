@@ -13,5 +13,5 @@ jobs:
     runs-on ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    -run: docker run my-test-image
+    - run: docker run my-test-image
    
