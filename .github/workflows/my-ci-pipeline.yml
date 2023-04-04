@@ -5,12 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     name: run pytests
     steps:
-    - name: build test image
       uses: actions/checkout@v2
       run: docker build --target test --tag my-test-image .
-    - name: run test image
-      uses: actions/checkout@v2
-      using: 'docker'
-      image: 'my-test-image'
-      run: docker run my-test-image
-   
+      run: docker run my-test-image  
