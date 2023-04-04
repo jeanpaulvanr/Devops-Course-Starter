@@ -8,9 +8,11 @@ jobs:
     - uses: actions/checkout@v2
     - run: docker build --target test --tag my-test-image .
 
-  test:
+  runs:
     name: Run the Test Image
     runs-on: ubuntu-latest
+    using: 'docker'
+    image: 'my-test-image'
     steps:
     - uses: actions/checkout@v2
     - run: docker run my-test-image
