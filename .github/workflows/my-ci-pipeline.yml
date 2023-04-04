@@ -3,6 +3,9 @@ on:
   push:
     paths-ignore:
       - '**.md'
+  pull:
+    paths-ignore:
+      - '**.md'
 jobs:
   to-do-app-tests:
     name: run pytests
