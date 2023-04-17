@@ -210,20 +210,20 @@ You should see your app and be able to use it.
 
 ### Step 3: Create a Resource -> Web App
 
-### Step 4: In the “Publish” field, select “Docker Container”
+In the “Publish” field, select “Docker Container”
 
-### Step 5: Choose an appropriate “App Service Plan”
+Choose an appropriate “App Service Plan”
 
-### Step 6: Select "Docker Hub" in the "Image Source" field. Enter the details of the image hosted on Docker Hub:
+Select "Docker Hub" in the "Image Source" field. Enter the details of the image hosted on Docker Hub:
 
 ```
 jeanpaulvanr/todoapp:jp
 ```
 
-### Step 7: Set up environment variables (Settings/Configuration - New Application Setting)
+### Step 4: Set up environment variables (Settings/Configuration - New Application Setting)
 NB By default, App Services assume your app is listening on either port 80 or 8080. Set the WEBSITES_PORT app setting to match your container’s behaviour.
 
-### Step 8: Start your app.
+### Step 5: Start your app.
 
 Your app should now be visible under the domain you specified. Example provided below:
 
