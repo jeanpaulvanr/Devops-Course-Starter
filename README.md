@@ -183,20 +183,20 @@ $ docker build --target test --tag todo-app:test .
 
 With the containers built, you can now run them with the following commands:
 
-####Production
+### Production
 ```
 $ docker run --env-file .env -p 5000:5000 todo-app:prod
 ```
 
-####Development
+### Development
 ```
 $ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/opt/todoapp/todo_app todo-app:dev
 ```
-####Test
+### Test
 
 $ docker run todo-app:test
 
-###Step 4: Test the To-Do App is working
+### Step 4: Test the To-Do App is working
 
 Irrespective of whether you've run the development or production container, navigate to [here](http:\\localhost:5000)
 
@@ -204,20 +204,29 @@ You should see your app and be able to use it.
 
 ## Steps to Migrate the Application into Microsoft Azure
 
-Step 1: Set up a Microsoft Azure Account
-Step 2: Creat a Resource Group (to run your app in)
-Step 3: Create a Resource -> Web App
-Step 4: In the “Publish” field, select “Docker Container”
-Step 5: Choose an appropriate “App Service Plan”
-Step 6: Select "Docker Hub" in the "Image Source" field. Enter the details of the image hosted on Docker Hub:
+### Step 1: Set up a Microsoft Azure Account
+
+### Step 2: Creat a Resource Group (to run your app in)
+
+### Step 3: Create a Resource -> Web App
+
+### Step 4: In the “Publish” field, select “Docker Container”
+
+### Step 5: Choose an appropriate “App Service Plan”
+
+### Step 6: Select "Docker Hub" in the "Image Source" field. Enter the details of the image hosted on Docker Hub:
+
 ```
 jeanpaulvanr/todoapp:jp
 ```
-Step 7: Set up environment variables (Settings/Configuration - New Application Setting)
+
+### Step 7: Set up environment variables (Settings/Configuration - New Application Setting)
 NB By default, App Services assume your app is listening on either port 80 or 8080. Set the WEBSITES_PORT app setting to match your container’s behaviour.
-Step 8: Start your app.
+
+### Step 8: Start your app.
 
 Your app should now be visible under the domain you specified. Example provided below:
+
 ```
 https://jp-todoapp.azurewebsites.net/
 ```
