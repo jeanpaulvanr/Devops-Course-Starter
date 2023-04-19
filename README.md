@@ -205,8 +205,11 @@ You should see your app and be able to use it.
 ## Steps to Migrate the Application into Microsoft Azure
 
 ### Preliminary Steps to Build and Push Image to DockerHub:
-docker build --tag <docker login name>/<name>:<tag> .
-docker push docker.io/<docker login name>/<name>:<tag>
+
+```
+docker build --tag <docker login name>/<app name>:<tag> .
+docker push docker.io/<docker login name>/<app name>:<tag>
+```
 
 ### Step 1: Set up a Microsoft Azure Account
 
