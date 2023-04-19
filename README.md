@@ -224,7 +224,7 @@ Choose an appropriate “App Service Plan”
 Select "Docker Hub" in the "Image Source" field. Enter the details of the image hosted on Docker Hub:
 
 ```
-jeanpaulvanr/todoapp:jp
+<docker login name>/<app name>:<tag>
 ```
 
 ### Step 4: Set up environment variables (Settings/Configuration - New Application Setting)
@@ -247,7 +247,7 @@ Build and push it to DockerHub using the 'Preliminary Steps'.
 Use the command below to automatically update the app within Azure.
 
 ```
-curl -dH -X POST "<webhook URL located under Deployment Center in Azure>"
+curl -dH -X POST "<Webhook URL located under Deployment Center in Azure>"
 ```
 
 #### End of ReadMe
