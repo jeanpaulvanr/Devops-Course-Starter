@@ -15,3 +15,12 @@ jobs:
     -  run: docker build --target test --tag my-test-image .
     -  run: docker run my-test-image
 
+  to-do-app-production:
+    name: Build and Deploy to Azure
+    runs-on: ubuntu-latest
+    needs: to-do-app-tests
+    steps:
+    -  uses: actions/checkout@v2
+    -  run: docker build --target production --tag ${{ secrets.DOCKERHUB_USERNAME }}/todoapp .
+    -  run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
+    -  run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/todoapp
