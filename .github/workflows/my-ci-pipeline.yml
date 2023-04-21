@@ -24,3 +24,4 @@ jobs:
     -  run: docker build --target production --tag ${{ secrets.DOCKERHUB_USERNAME }}/todoapp .
     -  run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
     -  run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/todoapp
+    -  run: curl -dH -X POST "${{ secrets.JP_AZURE_WEBHOOK}}"
