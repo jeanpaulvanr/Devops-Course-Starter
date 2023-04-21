@@ -183,23 +183,71 @@ $ docker build --target test --tag todo-app:test .
 
 With the containers built, you can now run them with the following commands:
 
-####Production
+### Production
 ```
 $ docker run --env-file .env -p 5000:5000 todo-app:prod
 ```
 
-####Development
+### Development
 ```
 $ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/opt/todoapp/todo_app todo-app:dev
 ```
-####Test
+### Test
 
 $ docker run todo-app:test
 
-###Step 4: Test the To-Do App is working
+### Step 4: Test the To-Do App is working
 
 Irrespective of whether you've run the development or production container, navigate to [here](http:\\localhost:5000)
 
-You should both see your app and be able to use it.
+You should see your app and be able to use it.
+
+## Steps to Migrate the Application into Microsoft Azure
+
+### Preliminary Steps to Build and Push Image to DockerHub:
+
+```
+docker build --tag <docker login name>/<app name>:<tag> .
+docker push docker.io/<docker login name>/<app name>:<tag>
+```
+
+### Step 1: Set up a Microsoft Azure Account
+
+### Step 2: Creat a Resource Group (to run your app in)
+
+### Step 3: Create a Resource -> Web App
+
+In the “Publish” field, select “Docker Container”
+
+Choose an appropriate “App Service Plan”
+
+Select "Docker Hub" in the "Image Source" field. Enter the details of the image hosted on Docker Hub:
+
+```
+<docker login name>/<app name>:<tag>
+```
+
+### Step 4: Set up environment variables (Settings/Configuration - New Application Setting)
+NB By default, App Services assume your app is listening on either port 80 or 8080. Set the WEBSITES_PORT app setting to match your container’s behaviour.
+
+### Step 5: Start your app.
+
+Your app should now be visible under the domain you specified. Example provided below:
+
+```
+https://jp-todoapp.azurewebsites.net/
+```
+
+### Updates to App
+
+Should you need to make updates to your app:
+
+Build and push it to DockerHub using the 'Preliminary Steps'.
+
+Use the command below to automatically update the app within Azure.
+
+```
+curl -dH -X POST "<Webhook URL located under Deployment Center in Azure>"
+```
 
 #### End of ReadMe
