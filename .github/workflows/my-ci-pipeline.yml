@@ -22,6 +22,6 @@ jobs:
     steps:
     -  uses: actions/checkout@v2
     -  run: docker build --target production --tag ${{ secrets.DOCKERHUB_USERNAME }}/todoapp .
-    -  run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
+    -  echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     -  run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/todoapp
     -  run: curl -dH -X POST "${{ secrets.JP_AZURE_WEBHOOK}}"
