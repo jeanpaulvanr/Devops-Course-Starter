@@ -1,9 +1,9 @@
 class Item:
-    def __init__(self, card_id, card_name, board_list = 'To Do'):
+    def __init__(self, card_id, card_name, status = 'To Do'):
         self.card_id = card_id
         self.card_name = card_name
-        self.list_name = board_list
+        self.card_status = status
         
     @classmethod
-    def from_trello_card(cls, board_card_values, board_list_values):
-        return cls(board_card_values['id'], board_card_values['name'], board_list_values['name'])
+    def from_a_card(cls, card_values, status_values):
+        return cls(card_values['id'], card_values['name'], status_values['name'])

@@ -9,11 +9,11 @@ def get_items_all():
 
     list_of_cards =[]
 
-    for trello_list_name in response_json:
-        cards = trello_list_name["cards"]
+    for a_card in response_json:
+        cards = a_card["cards"]
 
         for card in cards:
-            list_of_cards.append(Item.from_trello_card(card, trello_list_name))
+            list_of_cards.append(Item.from_a_card(card, a_card))
 
     return list_of_cards
 
