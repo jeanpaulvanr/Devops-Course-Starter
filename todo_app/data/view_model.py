@@ -1,7 +1,7 @@
 class ViewModel:
     
     def __init__(self, items):
-        self.items = items
+        self.items = items   #pass list of items to view model through here...
 
     @property
     def do_items(self):

@@ -1,15 +1,24 @@
 import pymongo
 import datetime
+import pprint
+import dotenv 
+import os
 
 # Change so secrets aren't revealed
-client = pymongo.MongoClient("mongodb://jpvan:FQihihBkCCrZg9ZX91ng7XYgkQlXrENHe7pgqeDGuj3IjX51f6qFxChXZgRrroCYGeNp8uQPEXVcACDbeaa5TQ==@jpvan.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@jpvan@")
+
+dotenv.load_dotenv()
+
+client = pymongo.MongoClient(os.getenv("CONNECTION_STRING"))
 
 db = client.jp_todoapp
 
-post = {"item name": "Another Item on the List",
+'''post = {"item name": "Another Item on the List",
         "status": "To Do",
         "tags": ["mongodb", "python", "pymongo"],
-        "date": datetime.datetime.utcnow()}
+        "date": datetime.datetime.utcnow()}'''
 
 posts = db.posts
-post_id = posts.insert_one(post).inserted_id
+#post_id = posts.insert_one(post).inserted_id
+
+for post in posts.find({"status": "To Do"}):
+      pprint.pprint(post)
