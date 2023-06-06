@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from todo_app.data.trello_items import get_items_all, add_item, close_item
+from todo_app.data.todo_app_items import get_items_all, add_item, close_item
 from todo_app.flask_config import Config
 from todo_app.data.view_model import ViewModel
 from dotenv import load_dotenv

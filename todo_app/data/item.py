@@ -1,5 +1,5 @@
 class Item:
-    def __init__(self, card_id, card_name, status = 'To Do'):
+    def __init__(self, card_id, card_name, status = 'To Do' ):
         self.card_id = card_id
         self.card_name = card_name
         self.card_status = status
