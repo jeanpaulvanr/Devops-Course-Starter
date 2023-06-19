@@ -22,7 +22,7 @@ def test_do_items_property_only_shows_do_items(items_list):
     # Assert
     assert len(returned_do_items) == 1
     do_item = returned_do_items[0]
-    assert do_item.list_name == "To Do"
+    assert do_item.data_item_status == "To Do"
 
 def test_doing_items_property_only_shows_doing_items(items_list):
     
@@ -35,7 +35,7 @@ def test_doing_items_property_only_shows_doing_items(items_list):
     # Assert
     assert len(returned_doing_items) == 1
     doing_item = returned_doing_items[0]
-    assert doing_item.list_name == "Doing"
+    assert doing_item.data_item_status == "Doing"
     
 def test_done_items_property_only_shows_done_items(items_list):
     
@@ -48,4 +48,4 @@ def test_done_items_property_only_shows_done_items(items_list):
     # Assert
     assert len(returned_done_items) == 1
     done_item = returned_done_items[0]
-    assert done_item.list_name == "Done"
+    assert done_item.data_item_status == "Done"
