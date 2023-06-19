@@ -1,4 +1,4 @@
-from todo_app.data.item import Item
+from todo_app.data.data_item import Data_Item
 from todo_app.data.view_model import ViewModel 
 import pytest
 
@@ -6,9 +6,9 @@ import pytest
 @pytest.fixture
 def items_list(): 
     return [
-        Item(1, "My Todo Item 1", "To Do"),
-        Item(2, "My Doing Item 1", "Doing"), 
-        Item(3, "My Done Item", "Done")
+        Data_Item(1, "My Todo Item 1", "To Do"),
+        Data_Item(2, "My Doing Item 1", "Doing"), 
+        Data_Item(3, "My Done Item", "Done")
     ]
  
 def test_do_items_property_only_shows_do_items(items_list):
@@ -17,7 +17,7 @@ def test_do_items_property_only_shows_do_items(items_list):
     view_model = ViewModel(items_list)
         
     # Act
-    returned_do_items = view_model.do_items
+    returned_do_items = view_model.vm_do_items
 
     # Assert
     assert len(returned_do_items) == 1
@@ -30,7 +30,7 @@ def test_doing_items_property_only_shows_doing_items(items_list):
     view_model = ViewModel(items_list)
         
     # Act
-    returned_doing_items = view_model.doing_items
+    returned_doing_items = view_model.vm_doing_items
 
     # Assert
     assert len(returned_doing_items) == 1
@@ -43,7 +43,7 @@ def test_done_items_property_only_shows_done_items(items_list):
     view_model = ViewModel(items_list)
         
     # Act
-    returned_done_items = view_model.done_items
+    returned_done_items = view_model.vm_done_items
 
     # Assert
     assert len(returned_done_items) == 1

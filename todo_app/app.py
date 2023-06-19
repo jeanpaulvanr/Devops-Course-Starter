@@ -13,8 +13,8 @@ def create_app():
 
     @app.route('/')
     def index():
-        item_view_model = ViewModel(get_items_all())
-        return render_template('index.html', view_model = item_view_model )
+        var_view_model = ViewModel(get_items_all())
+        return render_template('index.html', html_view_model = var_view_model )
 
     @app.route('/additem', methods=['POST'])
     def additem():

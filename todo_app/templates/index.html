@@ -12,8 +12,8 @@
     <div class="col-md-12">
       <h2>Open Items</h2>
       <ul class="list-group mb-4">
-        {% for item in view_model.do_items %}
-            <li> Item ID: {{ item.card_id }} - Title: {{item.card_name}} - Status: {{item.list_name}}  </li>
+        {% for html_item in html_view_model.vm_do_items %}
+            <li> Item ID: {{ html_item.data_item_id }} - Title: {{html_item.data_item_name}} - Status: {{html_item.data_item_status}}  </li>
         {% endfor %}
       </ul>
     </div>
@@ -23,8 +23,8 @@
     <div class="col-md-12">
       <h2>In Progress Items</h2>
       <ul class="list-group mb-4">
-        {% for item in view_model.doing_items %}
-            <li> Item ID: {{ item.card_id }} - Title: {{item.card_name}} - Status: {{item.list_name}}   </li>
+        {% for html_item in html_view_model.vm_doing_items %}
+            <li> Item ID: {{ html_item.data_item_id }} - Title: {{html_item.data_item_name}} - Status: {{html_item.data_item_status}}   </li>
         {% endfor %}
       </ul>
     </div>
@@ -34,8 +34,8 @@
     <div class="col-md-12">
       <h2>Closed Items</h2>
       <ul class="list-group mb-4">
-        {% for item in view_model.done_items %}
-            <li> Item ID: {{ item.card_id }} - Title: {{item.card_name}} - Status: {{item.list_name}}   </li>
+        {% for html_item in html_view_model.vm_done_items %}
+            <li> Item ID: {{ html_item.data_item_id }} - Title: {{html_item.data_item_name}} - Status: {{html_item.data_item_status}}   </li>
         {% endfor %}
       </ul>
     </div>

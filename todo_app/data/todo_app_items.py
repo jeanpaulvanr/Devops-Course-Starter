@@ -1,5 +1,5 @@
 import requests, os
-from todo_app.data.item import Item
+from todo_app.data.data_item import Data_Item
 
 def get_items_all():
 
@@ -13,27 +13,27 @@ def get_items_all():
         cards = a_card["cards"]
 
         for card in cards:
-            list_of_cards.append(Item.from_a_card(card, a_card))
+            list_of_cards.append(Data_Item.from_a_data_item(card, a_card))
 
     return list_of_cards
 
 def add_item(title):
 
-    item = requests.post(f"https://api.trello.com/1/cards?idList={todo_id()}&key={key()}&token={token()}&name={title}")
+    ai_item = requests.post(f"https://api.trello.com/1/cards?idList={todo_id()}&key={key()}&token={token()}&name={title}")
 
-    return item
+    return ai_item
 
 def doing_item(card_id):
     
-    item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={doing_id()}&key={key()}&token={token()}&board_id={board_id()}")
+    di_item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={doing_id()}&key={key()}&token={token()}&board_id={board_id()}")
 
-    return item
+    return di_item
 
 def close_item(card_id):
 
-    item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={done_id()}&key={key()}&token={token()}&board_id={board_id()}")
+    ci_item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={done_id()}&key={key()}&token={token()}&board_id={board_id()}")
     
-    return item
+    return ci_item
 
 def key():
     return os.getenv("API_KEY")
