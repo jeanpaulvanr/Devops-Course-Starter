@@ -1,19 +1,25 @@
-import requests, os
+import pymongo
+from pymongo import MongoClient
+import datetime
+import pprint
+import dotenv 
+import os
 from todo_app.data.data_item import Data_Item
 
 def get_items_all():
 
-    response = requests.get(f"https://api.trello.com/1/boards/{board_id()}/lists?key={key()}&token={token()}&cards=open")
-        
-    response_json = response.json()
+    dotenv.load_dotenv()
+
+    client = MongoClient(os.getenv("CONNECTION_STRING"))
+
+    db = client.jp_todoapp
+
+    posts = db.posts
 
     list_of_cards =[]
 
-    for a_card in response_json:
-        cards = a_card["cards"]
-
-        for card in cards:
-            list_of_cards.append(Data_Item.from_a_data_item(card, a_card))
+    for a_card in posts:
+            list_of_cards.append(Data_Item.from_a_data_item(a_card, a_card))
 
     return list_of_cards
 
@@ -34,21 +40,3 @@ def close_item(card_id):
     ci_item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={done_id()}&key={key()}&token={token()}&board_id={board_id()}")
     
     return ci_item
-
-def key():
-    return os.getenv("API_KEY")
-
-def token():
-    return os.getenv("API_TOKEN")
-
-def board_id():
-    return os.getenv("BOARD_ID")
-
-def todo_id():
-    return os.getenv("TO_DO_ID")
-
-def doing_id():
-    return os.getenv("DOING_ID")
-
-def done_id():
-    return os.getenv("DONE_ID")
