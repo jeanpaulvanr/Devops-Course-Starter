@@ -18,7 +18,7 @@ def get_items_all():
 
     list_of_cards =[]
 
-    for a_card in posts:
+    for a_card in posts.find():
             list_of_cards.append(Data_Item.from_a_data_item(a_card, a_card))
 
     return list_of_cards

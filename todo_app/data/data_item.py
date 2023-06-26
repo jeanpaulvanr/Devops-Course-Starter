@@ -6,4 +6,4 @@ class Data_Item:
         
     @classmethod
     def from_a_data_item(cls, data_values, status_values):
-        return cls(data_values['id'], data_values['name'], status_values['name'])
+        return cls(data_values['_id'], data_values['item name'], status_values['status'])
