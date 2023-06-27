@@ -160,10 +160,22 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "mongomock"
+version = "4.1.2"
+description = "Fake pymongo stub for testing simple MongoDB-dependent code"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+packaging = "*"
+sentinels = "*"
+
+[[package]]
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -216,7 +228,7 @@ zstd = ["zstandard"]
 name = "pyparsing"
 version = "3.0.9"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6.8"
 
@@ -274,6 +286,14 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "sentinels"
+version = "1.0.0"
+description = "Various objects to denote special meanings in python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
@@ -328,7 +348,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "976d5acf2664f834dd71804679e5b9d364ac35fecee255f2bfdba0e0f804280f"
+content-hash = "02e19ca5537ed5b820b0be55cc5b80eda1fe9ca08fc83a33b6caca7cd5c29378"
 
 [metadata.files]
 attrs = [
@@ -424,6 +444,10 @@ markupsafe = [
     {file = "MarkupSafe-2.1.1-cp39-cp39-win32.whl", hash = "sha256:d4306c36ca495956b6d568d276ac11fdd9c30a36f1b6eb928070dc5360b22e1c"},
     {file = "MarkupSafe-2.1.1-cp39-cp39-win_amd64.whl", hash = "sha256:46d00d6cfecdde84d40e572d63735ef81423ad31184100411e6e3388d405e247"},
     {file = "MarkupSafe-2.1.1.tar.gz", hash = "sha256:7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"},
+]
+mongomock = [
+    {file = "mongomock-4.1.2-py2.py3-none-any.whl", hash = "sha256:08a24938a05c80c69b6b8b19a09888d38d8c6e7328547f94d46cadb7f47209f2"},
+    {file = "mongomock-4.1.2.tar.gz", hash = "sha256:f06cd62afb8ae3ef63ba31349abd220a657ef0dd4f0243a29587c5213f931b7d"},
 ]
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
@@ -528,6 +552,9 @@ python-dotenv = [
 requests = [
     {file = "requests-2.28.1-py3-none-any.whl", hash = "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"},
     {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"},
+]
+sentinels = [
+    {file = "sentinels-1.0.0.tar.gz", hash = "sha256:7be0704d7fe1925e397e92d18669ace2f619c92b5d4eb21a89f31e026f9ff4b1"},
 ]
 tomli = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
