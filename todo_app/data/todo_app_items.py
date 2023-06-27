@@ -6,15 +6,21 @@ import dotenv
 import os
 from todo_app.data.data_item import Data_Item
 
-def get_items_all():
+def connection_mongo():
 
     dotenv.load_dotenv()
 
     client = MongoClient(os.getenv("CONNECTION_STRING"))
-
+    
     db = client.jp_todoapp
 
     posts = db.posts
+    
+    return posts
+
+def get_items_all():
+
+    posts = connection_mongo()
 
     list_of_cards =[]
 
@@ -24,19 +30,22 @@ def get_items_all():
     return list_of_cards
 
 def add_item(title):
-
-    ai_item = requests.post(f"https://api.trello.com/1/cards?idList={todo_id()}&key={key()}&token={token()}&name={title}")
+    
+    posts = connection_mongo()
+    
+    post = {"item name": title,
+            "status": "To Do",
+            "tags": ["mongodb", "python", "pymongo"],
+            "date": datetime.datetime.utcnow()}
+                    
+    ai_item = posts.insert_one(post).inserted_id
 
     return ai_item
 
-def doing_item(card_id):
-    
-    di_item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={doing_id()}&key={key()}&token={token()}&board_id={board_id()}")
-
-    return di_item
-
 def close_item(card_id):
 
-    ci_item = requests.put(f"https://api.trello.com/1/cards/{card_id}?idList={done_id()}&key={key()}&token={token()}&board_id={board_id()}")
+    posts = connection_mongo()
+       
+    ci_item = posts.update_one({"_id": card_id}, {"$set": {"status": "Done"}})
     
     return ci_item
