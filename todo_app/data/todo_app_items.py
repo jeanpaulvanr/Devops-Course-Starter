@@ -1,16 +1,11 @@
 import pymongo
-from pymongo import MongoClient
 import datetime
-import pprint
-import dotenv 
 import os
 from todo_app.data.data_item import Data_Item
 
 def connection_mongo():
 
-    dotenv.load_dotenv()
-
-    client = MongoClient(os.getenv("CONNECTION_STRING"))
+    client = pymongo.MongoClient(os.getenv("CONNECTION_STRING"))
     
     db = client.jp_todoapp
 

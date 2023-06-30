@@ -4,8 +4,6 @@ from todo_app.flask_config import Config
 from todo_app.data.view_model import ViewModel
 from dotenv import load_dotenv
 
-load_dotenv()
-
 def create_app():
 
     app = Flask(__name__)
