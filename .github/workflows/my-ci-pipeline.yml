@@ -19,7 +19,7 @@ jobs:
     name: Build and Deploy to Azure
     runs-on: ubuntu-latest
     needs: to-do-app-tests
-    #if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
     -  uses: actions/checkout@v2
     -  run: docker build --target production --tag ${{ secrets.DOCKERHUB_USERNAME }}/todoapp .

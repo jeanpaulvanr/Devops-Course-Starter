@@ -4,32 +4,70 @@
 
 ## Project Requirements
 
-### Create a Trello Account and API Key
+## Part A: Create a MongoDB Database for your Source Data
 
-We're going to be using Trello's API to fetch and save our To Do app's tasks. 
+### Step 1: Set up a Microsoft Azure Account
 
-In order to call their
-API, you need to first [create an account](https://trello.com/signup), then generate an API key and token by following the instructions [here](https://trello.com/app-key).
+### Step 2: MongoDB
 
-Make sure you make a note of these. We will need them again shortly.
+Create a MongoDB database as a Source for Data
 
-### Our To Do App's Trello Board ID
+Using the portal, log into Azure and create a new CosmosDB instance:
 
-Now you've set up an account and signed in, go ahead and create a new board.
+New → CosmosDB Database
 
-Name the board 'To_Do_App'.
+Select "Azure Cosmos DB"
 
-Select the board and in the browser, inspect the url.
-It should look similar to https://trello.com/b/sb0NVnTP/todoapp
-But not identical. 
+Name: jp_todoapp
 
-You need to take note of the sub-directory before the 'todoapp' sub-directory in the url.  In the example above, this would be sb0NVnTP
+Choose "Serverless" for Capacity mode
 
-This is your board id. Note it down as we will need it later on in our set up.
+You can also configure secure firewall connections here, but for now you should permit
+access from "All Networks" to enable easier testing of the integration with the app.
+
+### Step 3: Collection
+
+Now you've set up a database, go ahead and create a new collection:
+
+Name: jp_todoapp_collection
+
+### Step 4: Posts
+
+Now you've created a collection, you need to add some posts to it to work with as test data...
+
+First copy the “PRIMARY CONNECTION STRING” for your CosmosDB cluster,
+available under Settings → Connection String from your CosmosDB account
+page in the Azure portal
+
+From a terminal, run the following, substituting in your
+connection string:
+
+```
+>>> import pymongo
+>>> client = pymongo.MongoClient("mongodb://your-cosmoscluster:
+abcpassword123==@your-cosmos-cluster.mongo.cosmos.azure.com:10255")
+>>> client.list_database_names()
+[]
+```
+
+Assuming the above runs successfully, create some new posts using the code example below...
+
+```
+>>> post = {"item name": "First Item on the List",
+        "status": "To Do",
+        "tags": ["mongodb", "python", "pymongo"],
+        "date": datetime.datetime.utcnow()}
+
+>>> posts = db.posts
+>>> post_id = posts.insert_one(post).inserted_id
+```
+We have now sucessfully created our source data for the project.
 
 ## System Requirements
 
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install Poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
+
+## Party A: Poetry
 
 ### Poetry installation (Bash)
 
@@ -43,7 +81,7 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-
 (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py -UseBasicParsing).Content | python -
 ```
 
-## Dependencies
+### Dependencies
 
 The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from your preferred shell:
 
@@ -59,22 +97,18 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
-Remember I asked you to take a note of the API key, Token and Board ID in the Project Requirements section above? Well, now we're going to need them.
-
 Locate the .env file you've just created in the root directory.
 
-Open it and located the #Trello section.
+Open it and locate the Azure Cosmos DB section.
 
 Enter your values  as follows:
 
 ```
-#Trello
-API_KEY=your-api-key-pasted-here-instead
-API_TOKEN=your-api-token-pasted-here-instead
-BOARD_ID=your-board-id-pasted-here-instead
+#Azure Cosmos DB
+CONNECTION_STRING="PRIMARY CONNECTION STRING" (see Step 4 under 'Part A: Create a MongoDB Database for your Source Data')
 ```
 Save and close the file.
-## Running the App
+## Part B: Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
 ```bash
@@ -94,7 +128,7 @@ You should see output similar to the following:
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
 
-## Testing the App
+## Part C: Testing the App
 ### Unit or Integration Testing
 
 To run the Unit or Integration Tests on their own:
@@ -110,59 +144,7 @@ To run the all the tests together:
 $ poetry run pytest 
 ```
 
-## Provision a New Virtual Machine to Host Your To-Do App
-
-### Prerequisites
-
-You will need:
-
-A Control Node: any machine with Ansible installed.
-
-A Managed Node(s): the servers you manage with Ansible.
-
-### Preparing Your Inventory File
-
-Open the file: todoapp-ansible-inventory
-
-Remove any existing IPs and add the IP (or IPs) of the managed node(s) underneath the [webservers] section:
-
-```
-[webservers]
-18.132.144.249
-```
-Save and close.
-
-### Preparing Your Control Node
-
-Copy the following files to a directory on your Control Node:
-
-```
-
-todoapp-ansible-inventory
-
-todoapp-ansible-playbook.yml
-
-```
-### Running the Playbook
-
-On the control node, navigate to the directory you copied the files above to.
-
-Run the following command:
-
-```
-ansible-playbook todoapp-ansible-playbook.yml -i todoapp-ansible-inventory
-```
-The app should now be accessible from your remote nodes!
-
-Test it by opening a browser and entering:
-
-```
-host_ip:5000
-```
-
-You should see the To Do App
-
-## Using Docker to Run Your To-Do App 
+## Part D: Using Docker to Run Your To-Do App 
 
 
 ### Step 1: Install Docker
@@ -193,16 +175,16 @@ $ docker run --env-file .env -p 5000:5000 todo-app:prod
 $ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/opt/todoapp/todo_app todo-app:dev
 ```
 ### Test
-
+```
 $ docker run todo-app:test
-
+```
 ### Step 4: Test the To-Do App is working
 
 Irrespective of whether you've run the development or production container, navigate to [here](http:\\localhost:5000)
 
 You should see your app and be able to use it.
 
-## Steps to Migrate the Application into Microsoft Azure
+## Part E: Steps to Migrate the Application into Microsoft Azure
 
 ### Preliminary Steps to Build and Push Image to DockerHub:
 
@@ -210,11 +192,9 @@ You should see your app and be able to use it.
 docker build --tag <docker login name>/<app name>:<tag> .
 docker push docker.io/<docker login name>/<app name>:<tag>
 ```
-
-### Step 1: Set up a Microsoft Azure Account
+### Step 1: Login into Microsoft Azure
 
 ### Step 2: Creat a Resource Group (to run your app in)
-
 ### Step 3: Create a Resource -> Web App
 
 In the “Publish” field, select “Docker Container”
@@ -228,6 +208,9 @@ Select "Docker Hub" in the "Image Source" field. Enter the details of the image 
 ```
 
 ### Step 4: Set up environment variables (Settings/Configuration - New Application Setting)
+
+Remember to include the MongoDB connection string variable here.
+
 NB By default, App Services assume your app is listening on either port 80 or 8080. Set the WEBSITES_PORT app setting to match your container’s behaviour.
 
 ### Step 5: Start your app.
@@ -238,7 +221,7 @@ Your app should now be visible under the domain you specified. Example provided 
 https://jp-todoapp.azurewebsites.net/
 ```
 
-### Updates to App
+### Part F: Updates to your App
 
 Should you need to make updates to your app:
 
