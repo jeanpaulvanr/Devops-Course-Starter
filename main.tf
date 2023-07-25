@@ -88,7 +88,7 @@ resource "azurerm_cosmosdb_mongo_database" "db" {
 #App
 
 resource "azurerm_linux_web_app" "main" {
-  name                = "JP-Hello-World"
+  name                = "JP-ToDo-App"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   service_plan_id     = azurerm_service_plan.main.id
@@ -104,11 +104,10 @@ resource "azurerm_linux_web_app" "main" {
     "MONGODB_CONNECTION_STRING" = azurerm_cosmosdb_account.acc.connection_strings[0]
     "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
     "FLASK_APP" = "todo_app/app"
-    "FLASK_ENV" = "development2
+    "FLASK_ENV" = "development"
     "SECRET_KEY" = "secret-key"
     "WEBSITE_USE_DIAGNOSTIC_SERVER" = "true"
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "WEBSITES_PORT" = "5000"
-    
   }
 }
