@@ -67,11 +67,6 @@ resource "azurerm_cosmosdb_account" "acc" {
 
   geo_location {
     location          = "eastus"
-    failover_priority = 1
-  }
-
-  geo_location {
-    location          = "westus"
     failover_priority = 0
   }
 }
@@ -80,9 +75,8 @@ resource "azurerm_cosmosdb_account" "acc" {
 
 resource "azurerm_cosmosdb_mongo_database" "db" {
   name                = "jp-todoapp-cosmos-mongo-db"
-  resource_group_name = data.azurerm_cosmosdb_account.acc.resource_group_name
-  account_name        = data.azurerm_cosmosdb_account.acc.name
-  throughput          = 400
+  resource_group_name = azurerm_cosmosdb_account.acc.resource_group_name
+  account_name        = azurerm_cosmosdb_account.acc.name
 }
 
 #App
@@ -101,8 +95,8 @@ resource "azurerm_linux_web_app" "main" {
   }
 
   app_settings = {
-    "MONGODB_CONNECTION_STRING" = azurerm_cosmosdb_account.acc.connection_strings[0]
-    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
+    "CONNECTION_STRING" = azurerm_cosmosdb_account.acc.connection_strings[0]
+    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io/v1"
     "FLASK_APP" = "todo_app/app"
     "FLASK_ENV" = "development"
     "SECRET_KEY" = "secret-key"
