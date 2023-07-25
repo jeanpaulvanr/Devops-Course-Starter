@@ -95,12 +95,20 @@ resource "azurerm_linux_web_app" "main" {
 
   site_config {
     application_stack {
-      docker_image     = "appsvcsample/python-helloworld"
+      docker_image     = "jeanpaulvanr/todoapp"
       docker_image_tag = "latest"
     }
   }
 
   app_settings = {
+    "MONGODB_CONNECTION_STRING" = azurerm_cosmosdb_account.acc.connection_strings[0]
     "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
+    "FLASK_APP" = "todo_app/app"
+    "FLASK_ENV" = "development2
+    "SECRET_KEY" = "secret-key"
+    "WEBSITE_USE_DIAGNOSTIC_SERVER" = "true"
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+    "WEBSITES_PORT" = "5000"
+    
   }
 }
