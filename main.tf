@@ -16,7 +16,7 @@ data "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_service_plan" "main" {
-  name                = "terraformed-asp"
+  name                = "${var.prefix}-terraformed-asp"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   os_type             = "Linux"
@@ -79,7 +79,7 @@ resource "azurerm_cosmosdb_mongo_database" "db" {
   account_name        = azurerm_cosmosdb_account.acc.name
 
 lifecycle { 
-    prevent_destroy = true 
+    prevent_destroy = false 
   }
 }
 
@@ -100,12 +100,12 @@ resource "azurerm_linux_web_app" "main" {
 
   app_settings = {
     "CONNECTION_STRING" = azurerm_cosmosdb_account.acc.connection_strings[0]
-    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io/v1"
-    "FLASK_APP" = "todo_app/app"
-    "FLASK_ENV" = "development"
-    "SECRET_KEY" = "secret-key"
-    "WEBSITE_USE_DIAGNOSTIC_SERVER" = "true"
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
-    "WEBSITES_PORT" = "5000"
+    "DOCKER_REGISTRY_SERVER_URL" = var.docker_url
+    "FLASK_APP" = var.flask_app
+    "FLASK_ENV" = var.flask_env
+    "SECRET_KEY" = var.secret_key
+    "WEBSITE_USE_DIAGNOSTIC_SERVER" = var.website_diagnostics_enabled
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = var.website_service_storage_enabled
+    "WEBSITES_PORT" = var.websites_port
   }
 }
