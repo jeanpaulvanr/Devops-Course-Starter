@@ -1,10 +1,19 @@
 terraform {
+
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
       version = ">= 3.8"
     }
   }
+
+  backend "azurerm" {
+      resource_group_name  = "Cohort26_JeaRys_ProjectExercise"
+      storage_account_name = "jpdoapptfstate"
+      container_name       = "jptodoappcontainer"
+      key                  = "terraform.tfstate"
+  }
+
 }
 
 provider "azurerm" {
