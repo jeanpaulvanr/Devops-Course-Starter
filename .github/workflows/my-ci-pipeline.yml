@@ -23,7 +23,7 @@ jobs:
   to-do-app-production:
     name: Build and Deploy to Azure
     runs-on: ubuntu-latest
-    #needs: to-do-app-tests
+    needs: terraform
     #if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
     -  uses: actions/checkout@v2
