@@ -16,17 +16,12 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       v_secret_key: ${{ secrets.secret_key }}
-      v_docker_url: ${{ vars.docker_url}}
-      flask_app: ${{ vars.flask_app}}
-      flask_env: ${{ vars.flask_env}}
-      website_diagnostics_enabled: ${{ vars.website_diagnostics_enabled}}
-      website_service_storage_enabled: ${{ vars.website_service_storage_enabled}}
-      websites_port: ${{ vars.websites_port}}
+
     steps:
     -   uses: actions/checkout@v2
     -   run: terraform init
-    -   run: terraform apply -auto-approve -var secret_key = v_secret_key -var docker_url = v_docker_url
-  
+    -   run: terraform apply -auto-approve
+    
   to-do-app-production:
     name: Build and Deploy to Azure
     runs-on: ubuntu-latest
