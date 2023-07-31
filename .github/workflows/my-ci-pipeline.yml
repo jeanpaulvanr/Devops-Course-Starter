@@ -18,6 +18,7 @@ jobs:
     steps:
     -   uses: actions/checkout@v2
     -   run: terraform init
+    -   run: terraform apply -auto-approve
   
   to-do-app-production:
     name: Build and Deploy to Azure
