@@ -25,5 +25,6 @@ jobs:
     -  run: docker build --target production --tag ${{ secrets.DOCKERHUB_USERNAME }}/todoapp .
     -  run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     -  run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/todoapp
+    -  run: az login -u Jea.Rys@softwireacademy.onmicrosoft.com -p SouthAfrica78!
     -  run: terraform init
     #-  run: curl -dH -X POST "${{ secrets.JP_AZURE_WEBHOOK}}"
