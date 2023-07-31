@@ -4,6 +4,7 @@ variable "prefix" {
 }
 
 variable "docker_url" {
+  default = "https://index.docker.io/v1"
 }
 
 variable "flask_app" {
