@@ -18,7 +18,6 @@ jobs:
     steps:
     -   uses: actions/checkout@v2
     -   run: terraform init
-    -   run: terrafrom plan
   
   to-do-app-production:
     name: Build and Deploy to Azure
