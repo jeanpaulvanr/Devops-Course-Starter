@@ -25,7 +25,7 @@ jobs:
     steps:
     -   uses: actions/checkout@v2
     -   run: terraform init
-    -   run: terraform apply -auto-approve - var secret_key = v_secret_key - var docker_url = v_docker_url
+    -   run: terraform apply -auto-approve -var secret_key = v_secret_key -var docker_url = v_docker_url
   
   to-do-app-production:
     name: Build and Deploy to Azure
