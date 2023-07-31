@@ -8,9 +8,11 @@ variable "docker_url" {
 }
 
 variable "flask_app" {
+  default = "todo_app/app"
 }
 
 variable "flask_env" {
+  default = "development"
 }
 
 variable "secret_key" {
@@ -19,11 +21,14 @@ variable "secret_key" {
 
 variable "website_diagnostics_enabled" {
   type = bool
+  default = "true"
 }
 
 variable "website_service_storage_enabled" {
   type = bool
+  default = "false"
 }
 
 variable "websites_port" {
+  default = 5000
 }
