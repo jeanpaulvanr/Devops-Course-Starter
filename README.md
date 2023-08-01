@@ -192,45 +192,56 @@ You should see your app and be able to use it.
 docker build --tag <docker login name>/<app name>:<tag> .
 docker push docker.io/<docker login name>/<app name>:<tag>
 ```
-### Step 1: Login into Microsoft Azure
+### Step 1: Installations
 
-### Step 2: Creat a Resource Group (to run your app in)
-### Step 3: Create a Resource -> Web App
+Install both [Terraform](https://developer.hashicorp.com/terraform/tutorials/azure-get-started/install-cli?in=terraform%2Fazure-get-started) and the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli) locally.
 
-In the “Publish” field, select “Docker Container”
-
-Choose an appropriate “App Service Plan”
-
-Select "Docker Hub" in the "Image Source" field. Enter the details of the image hosted on Docker Hub:
+Once installed, login to the Azure portal.
 
 ```
-<docker login name>/<app name>:<tag>
+az login
 ```
 
-### Step 4: Set up environment variables (Settings/Configuration - New Application Setting)
+Then  run...
 
-Remember to include the MongoDB connection string variable here.
+```
+az account list
+```
 
-NB By default, App Services assume your app is listening on either port 80 or 8080. Set the WEBSITES_PORT app setting to match your container’s behaviour.
+If that command listed more than one Subscription, tell the Azure CLI which to use by running 
 
-### Step 5: Start your app.
+```
+az account set --subscription="SUBSCRIPTION_ID"
+```
 
-Your app should now be visible under the domain you specified. Example provided below:
+### Step 2: Environment Variables
+
+Ensure  the environment variables in terraform.tfvars file are set correctly. Example below:
+
+```
+websites_port = 5000
+```
+### Step 3: Terraform Commands
+
+Run the following commands.
+Take note to add your secret key variable value.
+
+```
+terraform init
+terraform apply -var secret_key=<"secret key">
+```
+
+### Step 4: Push Application to Infrastructure
+
+```
+curl -dH -X POST "$(terraform output -raw cd_webhook)"
+```
+### Step 5: Start your Application
+
+Your app should now be visible under the domain specified in the terminal output. Example below:
 
 ```
 https://jp-todoapp.azurewebsites.net/
-```
-
-### Part F: Updates to your App
-
-Should you need to make updates to your app:
-
-Build and push it to DockerHub using the 'Preliminary Steps'.
-
-Use the command below to automatically update the app within Azure.
-
-```
-curl -dH -X POST "<Webhook URL located under Deployment Center in Azure>"
 ```
 
 #### End of ReadMe
