@@ -28,8 +28,6 @@ jobs:
       TF_VAR_docker_url: ${{ vars.docker_url}}
       TF_VAR_flask_app: ${{ vars.flask_app}}
       TF_VAR_flask_env: ${{ vars.flask_env}}
-      TF_VAR_website_diagnostics_enabled: ${{ vars.website_diagnostics_enabled}}
-      TF_VAR_website_service_storage_enabled: ${{ vars.website_service_storage_enabled}}
       TF_VAR_websites_port: ${{ vars.websites_port}}
     steps:
     -   uses: actions/checkout@v2

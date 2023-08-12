@@ -3,7 +3,7 @@ variable "prefix" {
   default = "JP"
 }
 
-variable "docker_url" {
+variable "container_repository_url" {
 }
 
 variable "flask_app" {
@@ -18,10 +18,12 @@ variable "secret_key" {
 
 variable "website_diagnostics_enabled" {
   type = bool
+  default = true
 }
 
 variable "website_service_storage_enabled" {
   type = bool
+  default = false
 }
 
 variable "websites_port" {
