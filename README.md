@@ -241,7 +241,7 @@ curl -dH -X POST "$(terraform output -raw cd_webhook)"
 Your app should now be visible under the domain specified in the terminal output. Example below:
 
 ```
-https://jp-todoapp.azurewebsites.net/
+https://jp-todo-app.azurewebsites.net/
 ```
 
 #### End of ReadMe
