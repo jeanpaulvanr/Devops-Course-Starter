@@ -3,7 +3,7 @@ variable "prefix" {
   default = "JP"
 }
 
-variable "container_repository_url" {
+variable "container_repository_server_url" {
 }
 
 variable "flask_app" {

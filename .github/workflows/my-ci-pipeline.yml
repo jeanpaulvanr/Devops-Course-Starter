@@ -25,7 +25,7 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
-      TF_VAR_docker_url: ${{ vars.docker_url}}
+      TF_VAR_container_repository_server_url: ${{ vars.container_repository_server_url}}
       TF_VAR_flask_app: ${{ vars.flask_app}}
       TF_VAR_flask_env: ${{ vars.flask_env}}
       TF_VAR_websites_port: ${{ vars.websites_port}}
