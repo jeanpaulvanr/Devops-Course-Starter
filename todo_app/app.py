@@ -10,8 +10,8 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config())
     app.logger.setLevel(app.config['LOG_LEVEL'])
-    if app.config['LOGGLY_TOKEN'] is not None:
-        handler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
+    if app.config['LOGGING_SERVICE_TOKEN'] is not None:
+        handler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{app.config["LOGGING_SERVICE_TOKEN"]}/tag/todo-app')
         handler.setFormatter(Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
         app.logger.addHandler(handler)
     
