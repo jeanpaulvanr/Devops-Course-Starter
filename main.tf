@@ -116,5 +116,7 @@ resource "azurerm_linux_web_app" "main" {
     "WEBSITE_USE_DIAGNOSTIC_SERVER" = var.website_diagnostics_enabled
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = var.website_service_storage_enabled
     "WEBSITES_PORT" = var.websites_port
+    "LOG_LEVEL" = var.log_level
+    "LOGGING_SERVICE_TOKEN" = var.logging_service_token
   }
 }

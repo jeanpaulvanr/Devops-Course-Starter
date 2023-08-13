@@ -28,3 +28,9 @@ variable "website_service_storage_enabled" {
 
 variable "websites_port" {
 }
+
+variable "log_level" {
+}
+
+variable "logging_service_token" {
+}
