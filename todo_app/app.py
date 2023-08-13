@@ -12,10 +12,8 @@ def create_app():
     app.logger.setLevel(app.config['LOG_LEVEL'])
     if app.config['LOGGLY_TOKEN'] is not None:
         handler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
-    handler.setFormatter(
-        Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")
-    )
-    app.logger.addHandler(handler)
+        handler.setFormatter(Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
+        app.logger.addHandler(handler)
     
     @app.route('/')
     def index():
