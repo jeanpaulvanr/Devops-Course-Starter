@@ -109,12 +109,14 @@ resource "azurerm_linux_web_app" "main" {
 
   app_settings = {
     "CONNECTION_STRING" = azurerm_cosmosdb_account.acc.connection_strings[0]
-    "DOCKER_REGISTRY_SERVER_URL" = var.docker_url
+    "CONTAINER_REPOSITORY_SERVER_URL" = var.container_repository_server_url
     "FLASK_APP" = var.flask_app
     "FLASK_ENV" = var.flask_env
     "SECRET_KEY" = var.secret_key
     "WEBSITE_USE_DIAGNOSTIC_SERVER" = var.website_diagnostics_enabled
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = var.website_service_storage_enabled
     "WEBSITES_PORT" = var.websites_port
+    "LOG_LEVEL" = var.log_level
+    "LOGGING_SERVICE_TOKEN" = var.logging_service_token
   }
 }

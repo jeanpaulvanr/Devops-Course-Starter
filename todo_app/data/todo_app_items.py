@@ -34,7 +34,7 @@ def add_item(title):
             "date": datetime.datetime.utcnow()}
                     
     ai_item = posts.insert_one(post).inserted_id
-
+    
     return ai_item
 
 def close_item(card_id):
@@ -44,5 +44,3 @@ def close_item(card_id):
     ci_item = posts.update_one({"_id": card_id}, {"$set": {"status": "Done"}})
     
     return ci_item
-
-#Deployment Comment to try another Push again

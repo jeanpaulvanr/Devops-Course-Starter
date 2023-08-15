@@ -3,7 +3,7 @@ variable "prefix" {
   default = "JP"
 }
 
-variable "container_repository_url" {
+variable "container_repository_server_url" {
 }
 
 variable "flask_app" {
@@ -27,4 +27,11 @@ variable "website_service_storage_enabled" {
 }
 
 variable "websites_port" {
+}
+
+variable "log_level" {
+  default = "INFO"
+}
+
+variable "logging_service_token" {
 }
