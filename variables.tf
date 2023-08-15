@@ -30,6 +30,7 @@ variable "websites_port" {
 }
 
 variable "log_level" {
+  default = "INFO"
 }
 
 variable "logging_service_token" {
