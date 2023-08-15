@@ -23,8 +23,8 @@ def create_app():
     @app.route('/additem', methods=['POST'])
     def additem():
         log_add_item = request.form.get('title')
-        add_item(log_add_item)
-        app.logger.info('The following Item has been added: %s', log_add_item)
+        id = add_item(log_add_item)
+        app.logger.info('The following Item has been added: %s', id)
         return redirect(url_for('index'))
 
     @app.route('/closeitem', methods=['POST'])
