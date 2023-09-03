@@ -24,7 +24,7 @@ def create_app():
 
     @login_manager.unauthorized_handler
     def unauthenticated():
-        client_id = os.getenv('GITHUB_CLIENT_ID')
+        client_id = os.getenv('GH_CLIENT_ID')
         return redirect(f"https://github.com/login/oauth/authorize?client_id={client_id}")
 
     @login_manager.user_loader
