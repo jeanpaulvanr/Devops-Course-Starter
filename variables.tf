@@ -35,3 +35,11 @@ variable "log_level" {
 
 variable "logging_service_token" {
 }
+
+variable "gh_client_id" {
+  sensitive = true
+}
+
+variable "gh_client_secret" {
+  sensitive = true
+}
