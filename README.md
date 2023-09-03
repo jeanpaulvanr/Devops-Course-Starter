@@ -25,6 +25,10 @@ Choose "Serverless" for Capacity mode
 You can also configure secure firewall connections here, but for now you should permit
 access from "All Networks" to enable easier testing of the integration with the app.
 
+```
+Encryption at rest for Azure Cosmos DB is implemented by using a number of security technologies, including secure key storage systems, encrypted networks, and cryptographic APIs. There is no additional cost.
+```
+
 ### Step 3: Collection
 
 Now you've set up a database, go ahead and create a new collection:
@@ -243,5 +247,10 @@ Your app should now be visible under the domain specified in the terminal output
 ```
 https://jp-todo-app.azurewebsites.net/
 ```
+
+## Note on Security
+### Encryption at Rest
+
+Encryption at rest for Azure Cosmos DB  is implemented by using a number of security technologies, including secure key storage systems, encrypted networks, and cryptographic APIs.
 
 #### End of ReadMe
