@@ -59,10 +59,14 @@ def create_app():
         access_token = response.json()["access_token"]
 
         headers = {
-                "Authorization": f"Bearer{access_token}"
+                "Authorization": f"Bearer {access_token}"
         }
         
-        
+        user_data_response = requests.get("https://api.github.com/user", headers = headers)
+
+        #print(user_data_response)
+
+        user_id = user_data_response.json()["id"]
 
     @app.route('/additem', methods=['POST'])
     @login_required
