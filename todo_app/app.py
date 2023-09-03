@@ -44,8 +44,8 @@ def create_app():
     def login():
         authorisation_code =  request.args.get('code')
         
-        client_id = os.getenv('GITHUB_CLIENT_ID')
-        client_secret = os.getenv('GITHUB_CLIENT_SECRET')
+        client_id = os.getenv('GH_CLIENT_ID')
+        client_secret = os.getenv('GH_CLIENT_SECRET')
         
         params = {
             "client_id": client_id,
