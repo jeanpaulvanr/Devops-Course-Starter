@@ -1,7 +1,9 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
-from flask_login import LoginManager, login_required
+from flask_login import LoginManager, UserMixin, login_required, login_user
+import flask_login
 import requests
+from todo_app.data import user
 from todo_app.data.todo_app_items import get_items_all, add_item, close_item
 from todo_app.flask_config import Config
 from todo_app.data.view_model import ViewModel
@@ -27,7 +29,8 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        pass # We will return to this later
+        
+        return user.User(user_id)
 
     login_manager.init_app(app)
     
@@ -67,6 +70,10 @@ def create_app():
         #print(user_data_response)
 
         user_id = user_data_response.json()["id"]
+
+        login_user(user.User(user_id))
+
+        return redirect(url_for('index'))
 
     @app.route('/additem', methods=['POST'])
     @login_required
