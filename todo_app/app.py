@@ -67,8 +67,6 @@ def create_app():
         
         user_data_response = requests.get("https://api.github.com/user", headers = headers)
 
-        #print(user_data_response)
-
         user_id = user_data_response.json()["id"]
 
         login_user(user.User(user_id))
