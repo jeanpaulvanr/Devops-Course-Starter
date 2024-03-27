@@ -118,5 +118,7 @@ resource "azurerm_linux_web_app" "main" {
     "WEBSITES_PORT" = var.websites_port
     "LOG_LEVEL" = var.log_level
     "LOGGING_SERVICE_TOKEN" = var.logging_service_token
+    "GH_CLIENT_ID" = var.gh_client_id
+    "GH_CLIENT_SECRET" = var.gh_client_secret
   }
 }

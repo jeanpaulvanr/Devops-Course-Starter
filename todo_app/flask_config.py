@@ -1,6 +1,5 @@
 import os
 
-
 class Config:
     def __init__(self):
         """Base configuration variables."""
@@ -9,3 +8,4 @@ class Config:
             raise ValueError("No SECRET_KEY set for Flask application. Did you follow the setup instructions?")
         self.LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
         self.LOGGING_SERVICE_TOKEN = os.environ.get('LOGGING_SERVICE_TOKEN')
+        self.LOGIN_DISABLED = os.environ.get("LOGIN_DISABLED")
